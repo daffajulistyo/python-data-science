@@ -1,0 +1,21 @@
+id_peminjaman,tanggal_pinjam,tanggal_kembali,judul_buku,kategori,jumlah_hari_pinjam,status_pengembalian,denda
+P001,2025-01-02,2025-01-09,Algoritma dan Pemrograman,Komputer,7,Tepat Waktu,0
+P002,2025-01-03,2025-01-15,Dasar Data Science,Komputer,12,Terlambat,5000
+P003,2025-01-04,,Manajemen Perpustakaan,Manajemen,6,Tepat Waktu,
+P004,2025/01/05,2025-01-18,Statistika Dasar,Matematika,13,Terlambat,10000
+P005,2025-01-06,2025-01-12,Pemrograman Python,Komputer,6,Tepat Waktu,0
+P006,2025-01-07,2025-01-20,Akuntansi Dasar,Ekonomi,13,Terlambat,8000
+P007,2025-01-08,2025-01-14,Basis Data,Komputer,6,Tepat Waktu,0
+P008,2025-01-09,2025-01-25,Metodologi Penelitian,Pendidikan,16,Terlambat,7000
+P009,2025-01-10,2025-01-16,Manajemen Waktu,Manajemen,6,Tepat Waktu,0
+P010,2025-01-11,2025-01-30,Machine Learning Dasar,Komputer,19,Terlambat,12000
+P011,2025-01-12,2025-01-18,Matematika Diskrit,Matematika,6,Tepat Waktu,0
+P012,2025-01-13,2025-01-28,Ekonomi Mikro,Ekonomi,15,Terlambat,15000
+P013,2025-01-14,2025-01-20,Etika Profesi,Pendidikan,6,Tepat Waktu,0
+P014,2025-01-15,2025-01-29,Pengantar AI,Komputer,-14,Terlambat,11000
+P015,2025-01-16,2025-01-22,Statistika Lanjut,Matematika,6,Tepat Waktu,0
+P016,2025-01-17,2025-01-31,Sistem Informasi,Komputer,14,Terlambat,9000
+P017,2025-01-18,2025-01-24,Manajemen SDM,Manajemen,6,Tepat Waktu,0
+P018,2025-01-19,2025-02-05,Data Mining,Komputer,17,Terlambat,15000
+P019,2025-01-20,2025-01-26,Pendidikan Karakter,Pendidikan,6,Tepat Waktu,0
+P020,2025-01-21,2025-02-10,Analisis Big Data,Komputer,20,Terlambat,
