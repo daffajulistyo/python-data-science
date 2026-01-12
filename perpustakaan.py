@@ -14,7 +14,22 @@ print("\n")
 # DATA CLEANING
 # =========================
 
-# Perbaiki format tanggal
+# --- NORMALISASI STRING TANGGAL (SOLUSI UTAMA NaT) ---
+df["tanggal_pinjam"] = (
+    df["tanggal_pinjam"]
+    .astype(str)
+    .str.strip()
+    .str.replace("/", "-", regex=False)
+)
+
+df["tanggal_kembali"] = (
+    df["tanggal_kembali"]
+    .astype(str)
+    .str.strip()
+    .str.replace("/", "-", regex=False)
+)
+
+# Konversi ke datetime
 df["tanggal_pinjam"] = pd.to_datetime(df["tanggal_pinjam"], errors="coerce")
 df["tanggal_kembali"] = pd.to_datetime(df["tanggal_kembali"], errors="coerce")
 
@@ -36,11 +51,11 @@ print("=== Data Setelah Cleaning ===")
 print(df)
 print("\n")
 
-dataset_bersih = df.copy()
-
 # =========================
 # ANALISIS DATA
 # =========================
+dataset_bersih = df.copy()
+
 total_peminjaman = len(dataset_bersih)
 kategori_terbanyak = dataset_bersih["kategori"].value_counts().idxmax()
 rata_rata_hari = dataset_bersih["jumlah_hari_pinjam"].mean()
@@ -61,15 +76,13 @@ print("Total denda yang diperoleh perpustakaan: Rp", total_denda)
 print("Persentase pengembalian terlambat:", round(persentase_terlambat, 2), "%")
 
 # =========================
-# VISUALISASI (1 GRAFIK SAJA)
+# VISUALISASI (1 GRAFIK)
 # =========================
-print("\nMenampilkan grafik jumlah peminjaman per kategori...")
-
 jumlah_per_kategori = dataset_bersih["kategori"].value_counts()
 
 plt.figure()
 jumlah_per_kategori.plot(kind="bar")
 plt.xlabel("Kategori Buku")
 plt.ylabel("Jumlah Peminjaman")
-plt.title("Grafik Jumlah Peminjaman Buku per Kategori")
+plt.title("Jumlah Peminjaman Buku per Kategori")
 plt.show()
