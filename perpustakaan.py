@@ -14,7 +14,7 @@ print("\n")
 # DATA CLEANING
 # =========================
 
-# --- NORMALISASI STRING TANGGAL (SOLUSI UTAMA NaT) ---
+# --- NORMALISASI STRING TANGGAL ---
 df["tanggal_pinjam"] = (
     df["tanggal_pinjam"]
     .astype(str)
@@ -40,30 +40,38 @@ df["tanggal_kembali"] = df["tanggal_kembali"].fillna(
 
 df["denda"] = df["denda"].fillna(0)
 
-# Hapus data tidak logis
-df = df[df["jumlah_hari_pinjam"] >= 0]
+# Hitung ulang jumlah hari pinjam dari tanggal
+df["jumlah_hari_pinjam"] = (
+    df["tanggal_kembali"] - df["tanggal_pinjam"]
+).dt.days
+
 
 # Pastikan tipe data sesuai
 df["jumlah_hari_pinjam"] = df["jumlah_hari_pinjam"].astype(int)
 df["denda"] = df["denda"].astype(int)
 
+# Print tipe data setiap kolom
+print("=== Tipe Data Setiap Kolom Setelah Cleaning ===")
+print(df.dtypes)
+print("\n")
+
+dataset_bersih = df.copy()
+
 print("=== Data Setelah Cleaning ===")
-print(df)
+print(dataset_bersih)
 print("\n")
 
 # =========================
 # ANALISIS DATA
 # =========================
-dataset_bersih = df.copy()
+
 
 total_peminjaman = len(dataset_bersih)
 kategori_terbanyak = dataset_bersih["kategori"].value_counts().idxmax()
 rata_rata_hari = dataset_bersih["jumlah_hari_pinjam"].mean()
 total_denda = dataset_bersih["denda"].sum()
-persentase_terlambat = (
-    dataset_bersih["status_pengembalian"]
-    .value_counts(normalize=True)["Terlambat"] * 100
-)
+terlambat_per_kategori = dataset_bersih[dataset_bersih['status_pengembalian' ]=='Terlambat']['kategori'].value_counts()
+persentase_terlambat = (dataset_bersih["status_pengembalian"].value_counts(normalize=True)["Terlambat"] * 100)
 
 # =========================
 # OUTPUT
@@ -73,16 +81,14 @@ print("Total peminjaman buku:", total_peminjaman)
 print("Kategori buku paling sering dipinjam:", kategori_terbanyak)
 print("Rata-rata jumlah hari peminjaman:", round(rata_rata_hari, 2))
 print("Total denda yang diperoleh perpustakaan: Rp", total_denda)
+print("Jumlah peminjaman terlambat per kategori:", terlambat_per_kategori.head(2))
 print("Persentase pengembalian terlambat:", round(persentase_terlambat, 2), "%")
 
 # =========================
 # VISUALISASI (1 GRAFIK)
 # =========================
-jumlah_per_kategori = dataset_bersih["kategori"].value_counts()
-
-plt.figure()
-jumlah_per_kategori.plot(kind="bar")
-plt.xlabel("Kategori Buku")
-plt.ylabel("Jumlah Peminjaman")
-plt.title("Jumlah Peminjaman Buku per Kategori")
+terlambat_per_kategori.plot(kind='bar')
+plt.title('Jumlah Keterlambatan per Kategori Buku')
+plt.xlabel('Kategori')
+plt.ylabel('Jumlah Terlambat')
 plt.show()
